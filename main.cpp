@@ -12,6 +12,7 @@ int main(int argc, char** argv) {
 	string lines = "";
 	ifstream file(argv[1]);
 	if (file.is_open()) {
+		while (getline(file, line))
 			lines += line + "\n";
 
 		file.close();
