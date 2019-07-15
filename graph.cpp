@@ -3,12 +3,11 @@
 using namespace std;
 
 
-void createFlowGraph(string* s) {
-	vector<string*> nodes = createListOfBB(s);
+void createFlowGraph(vector<string> &lines) {
+	vector<string*> nodes = createListOfBB(lines);
 
 }
 
-vector<string*> createListOfBB(string *s) {
-	cout << *s;
+vector<string*> createListOfBB(vector<string> &lines) {
     return vector<string*>();
 }

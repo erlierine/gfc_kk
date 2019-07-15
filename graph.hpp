@@ -3,5 +3,5 @@
 #include <vector>
 
 using namespace std;
-void createFlowGraph(string* s);
-vector<string*> createListOfBB(string* s);
+void createFlowGraph(vector<string> &lines);
+vector<string*> createListOfBB(vector<string> &lines);
