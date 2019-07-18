@@ -9,7 +9,6 @@ set(SOURCE_FILES
         graph.hpp)
 
 
-set(GRAPHVIZ_INCLUDE_DIR "//usr/include/graphviz")
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
