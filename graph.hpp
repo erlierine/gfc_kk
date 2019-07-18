@@ -8,14 +8,18 @@
 #include <graphviz/gvc.h>
 using namespace std;
 
-struct VertexData {
-	string code;
-	int num;
+struct sample_graph_writer {
+    void operator()(std::ostream& out) const {
+      out << "graph [bgcolor=lightgrey]" << std::endl;
+      out << "node [shape=circle color=white]" << std::endl;
+      out << "edge [style=dashed]" << std::endl;
+    }
 };
 
 
-typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::undirectedS, VertexData, 
-							boost::property<boost::edge_weight_t, double>> MyGraph;
+
+typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS, 
+							boost::property<boost::vertex_name_t, string>> MyGraph;
 
 
 void createFlowGraph(vector<string> &lines);

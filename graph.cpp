@@ -6,18 +6,18 @@ using namespace std;
 void createFlowGraph(vector<string> &lines) {
 	map<string, int> lbl_ixs;
 	vector<string> nodes = createListOfBB(lines, lbl_ixs);
+	map<string, MyGraph::vertex_descriptor> indexes;
 	MyGraph G = MyGraph(nodes.size());	
-	for (unsigned i = 0; i < nodes.size(); i++) {
-		G[i].code = nodes[i];
-		G[i].num = i;
+	for (size_t i = 0; i < nodes.size(); i++) {
+		boost::put(boost::vertex_name_t(), G, i, nodes[i].c_str());
+		indexes[nodes[i]] = boost::vertex(i, G);
 	}
-
 	vector<pair<int, int>> edges = findAllEdges(nodes);	
 	for(auto it = edges.begin(); it != edges.end(); it++)
 		boost::add_edge(it->first, it->second, G);	
-
 	ofstream dotfile("cfg.dot");
-	boost::write_graphviz(dotfile, G); 
+	boost::write_graphviz(dotfile, G,
+			boost::make_label_writer(boost::get(boost::vertex_name_t(), G))); 
 
 	dotfile.close();
 
@@ -32,6 +32,7 @@ void createFlowGraph(vector<string> &lines) {
     gvFreeLayout(gvc, g);
     agclose(g);
     gvFreeContext(gvc);
+//	remove("cfg.dot");
 }
 vector<string> createListOfBB(vector<string> &lines, map<string, int> &lbl_ixs) {
 	vector<bool> ins_leader(lines.size(), false);
