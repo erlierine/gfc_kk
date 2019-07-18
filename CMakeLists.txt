@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.7)
 project(gfc_kk)
 set(CMAKE_CXX_STANDARD 14)
 #set(CMAKE_CXX_FLAGS "-O2 -g") 
-set(CMAKE_CXX_FLAGS "-lgvc -lcgraph -lcdt") 
+#set(CMAKE_CXX_FLAGS "-lgvc -lcgraph -lcdt") 
 set(SOURCE_FILES
         main.cpp
         graph.cpp
