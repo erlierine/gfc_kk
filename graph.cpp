@@ -17,7 +17,9 @@ void createFlowGraph(vector<string> &lines) {
 		boost::add_edge(it->first, it->second, G);	
 	ofstream dotfile("cfg.dot");
 	boost::write_graphviz(dotfile, G,
-			boost::make_label_writer(boost::get(boost::vertex_name_t(), G))); 
+			boost::make_label_writer(boost::get(boost::vertex_name_t(), G)),
+			boost::default_writer(),
+			graph_writer());
 
 	dotfile.close();
 
@@ -32,7 +34,7 @@ void createFlowGraph(vector<string> &lines) {
     gvFreeLayout(gvc, g);
     agclose(g);
     gvFreeContext(gvc);
-//	remove("cfg.dot");
+	remove("cfg.dot");
 }
 vector<string> createListOfBB(vector<string> &lines, map<string, int> &lbl_ixs) {
 	vector<bool> ins_leader(lines.size(), false);

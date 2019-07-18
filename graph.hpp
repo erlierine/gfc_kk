@@ -8,11 +8,11 @@
 #include <graphviz/gvc.h>
 using namespace std;
 
-struct sample_graph_writer {
+struct graph_writer {
     void operator()(std::ostream& out) const {
-      out << "graph [bgcolor=lightgrey]" << std::endl;
-      out << "node [shape=circle color=white]" << std::endl;
-      out << "edge [style=dashed]" << std::endl;
+      out << "graph [bgcolor=white]" << std::endl;
+      out << "node [shape=rectangle color=black]" << std::endl;
+      out << "edge [style=solid]" << std::endl;
     }
 };
 
