@@ -18,38 +18,20 @@ void createFlowGraph(vector<string> &lines) {
 
 	ofstream dotfile("cfg.dot");
 	boost::write_graphviz(dotfile, G); 
+
 	dotfile.close();
 
-	string o_arg = string("-o") + " diagram.png";
-	char* args[] = {
-		const_cast<char*>("dot"), 
-		const_cast<char*>("Tpng"), 
-		const_cast<char*>("-Gsize=8,4!"), 
-		const_cast<char*>("-Gdpi=100"),
-		const_cast<char*>("cfg.dot"),
-		const_cast<char*>(o_arg.c_str())
-   	};
-
-	//Ovaj deo je manje-vise kopiran sa adrese:
-	//https://stackoverflow.com/questions/45225761/generate-image-of-graphviz-graph-given-dot-text-c
-	const int argc = sizeof(args)/sizeof(args[0]);
-	Agraph_t *g, *prev = NULL;
 	GVC_t *gvc;
-	
-	gvc = gvContext();
-	gvParseArgs(gvc, argc, args);
-
-	while ((g = gvNextInputGraph(gvc))) {
-		if (prev) {
-			gvFreeLayout(gvc, prev);
-			agclose(prev);
-		}
-		gvLayoutJobs(gvc, g);
-		gvRenderJobs(gvc, g);
-		prev = g;
-	}
-
-	gvFreeContext(gvc);
+    Agraph_t *g;
+    FILE *fp;
+    gvc = gvContext();
+    fp = fopen("cfg.dot", "r");
+    g = agread(fp, 0);
+    gvLayout(gvc, g, "dot");
+    gvRender(gvc, g, "png", fopen("diagram.png", "w"));
+    gvFreeLayout(gvc, g);
+    agclose(g);
+    gvFreeContext(gvc);
 }
 vector<string> createListOfBB(vector<string> &lines, map<string, int> &lbl_ixs) {
 	vector<bool> ins_leader(lines.size(), false);
