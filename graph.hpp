@@ -17,7 +17,6 @@ struct graph_writer {
 };
 
 
-
 typedef boost::adjacency_list<boost::vecS, boost::vecS, boost::directedS, 
 							boost::property<boost::vertex_name_t, string>> MyGraph;
 
