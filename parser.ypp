@@ -1,0 +1,109 @@
+%{
+    #include <iostream>
+    #include <string>
+    #include <cstdlib>
+    #include <vector>
+    #include <map>
+    #include "ast.hpp"
+    
+    #define YYDEBUG 1
+    
+    void yyerror(std::string s){
+        std::cerr << s << std::endl;
+        exit(EXIT_FAILURE);
+    }
+    
+    extern int yylex();
+%}
+
+%union{
+    int d;
+    std::string *s;
+}
+%token if_token else_token for_token print_token while_token incr_token decr_token eq_token neq_token
+%token <d> num_token
+%token <s> id_token string_token
+
+%nonassoc NO_ELSE
+%nonassoc else_token
+%right '='
+%left '<' '>' eq_token neq_token lte_token gte_token
+%left '+' '-'
+%left '*' '/' '%'
+%left incr_token decr_token
+%right UMINUS
+
+%%
+Program: NizNaredbi{
+}
+;
+NizNaredbi: NizNaredbi Naredba {
+}
+| Naredba {
+}
+;
+Blok: '{' NizNaredbi '}'{
+}
+| Naredba {
+}
+;
+Naredba: if_token '(' E ')' Blok %prec NO_ELSE {
+}
+| if_token '(' E ')' Blok else_token Blok{
+}
+| id_token '=' E ';'{
+}
+| print_token '(' E ')' ';'{
+}
+| print_token '(' string_token ')' ';'{
+}
+| for_token '('Naredba E ';' E ')' Blok{
+}
+| while_token '(' E ')' Blok{
+}
+| E ';'{
+}
+;
+E: E '+' E {
+}
+| E '*' E {
+}
+| E '/' E {
+}
+| E '-' E {
+}
+| E '%' E {
+}
+| E '<' E {
+}
+| E '>' E {
+}
+| E gte_token E {
+}
+| E lte_token E {
+}
+| E eq_token E {
+}
+| E neq_token E {
+}
+| '(' E ')' {
+}
+| num_token{
+}
+| id_token{
+}
+| '-' E %prec UMINUS{
+} 
+| id_token incr_token{
+}
+| id_token decr_token{
+}
+;
+
+%%
+int main(){
+    //yydebug = 1;
+    yyparse();
+    
+    return 0;
+}
