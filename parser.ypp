@@ -3,7 +3,6 @@
     #include <string>
     #include <cstdlib>
     #include <vector>
-    #include <map>
     #include "ast.hpp"
     
     #define YYDEBUG 1
@@ -19,6 +18,9 @@
 %union{
     int d;
     std::string *s;
+    ExprAST *e;
+    std::vector<ExprAST*> *v;
+    Block *b;
 }
 %token if_token else_token for_token print_token while_token incr_token decr_token eq_token neq_token
 %token <d> num_token
@@ -33,70 +35,107 @@
 %left incr_token decr_token
 %right UMINUS
 
+%type <e> E Naredba 
+%type <v> NizNaredbi
+%type <b> Blok Program
+
 %%
 Program: NizNaredbi{
+    $$ = new Block(*$1);
+    $$->compile3ac();
 }
 ;
 NizNaredbi: NizNaredbi Naredba {
+    $$ = $1;
+    $$->push_back($2);
 }
 | Naredba {
+    $$ = new std::vector<ExprAST*>();
+    $$->push_back($1);
 }
 ;
 Blok: '{' NizNaredbi '}'{
+     $$ = new Block(*$2);
 }
 | Naredba {
+    std::vector<ExprAST*> *temp = new std::vector<ExprAST*>();
+    temp->push_back($1);
+    $$ = new Block(*temp);
 }
 ;
 Naredba: if_token '(' E ')' Blok %prec NO_ELSE {
+    $$ = new IfExprAST($3, $5);
 }
 | if_token '(' E ')' Blok else_token Blok{
+    $$ = new IfElseExprAST($3, $5, $7);
 }
 | id_token '=' E ';'{
+    $$ = new AssignExprAST(*$1, $3);
 }
 | print_token '(' E ')' ';'{
 }
 | print_token '(' string_token ')' ';'{
 }
 | for_token '('Naredba E ';' E ')' Blok{
+    $$ = new ForExprAST($3, $4, $6, $8);
 }
 | while_token '(' E ')' Blok{
+    $$ = new WhileExprAST($3, $5);
 }
 | E ';'{
+    $$ = $1;
 }
 ;
 E: E '+' E {
+    $$ = new AddExprAST($1, $3);
 }
 | E '*' E {
+    $$ = new MulExprAST($1, $3);
 }
 | E '/' E {
+    $$ = new DivExprAST($1, $3);
 }
 | E '-' E {
+    $$ = new SubExprAST($1, $3);
 }
 | E '%' E {
+    $$ = new ModExprAST($1, $3);
 }
 | E '<' E {
+    $$ = new LtExprAST($1, $3);
 }
 | E '>' E {
+    $$ = new GtExprAST($1, $3);
 }
 | E gte_token E {
+    $$ = new GtEqExprAST($1, $3);
 }
 | E lte_token E {
+    $$ = new LtEqExprAST($1, $3);
 }
 | E eq_token E {
+    $$ = new EqExprAST($1, $3);
 }
 | E neq_token E {
+    $$ = new NEqExprAST($1, $3);
 }
 | '(' E ')' {
+    $$ = $2;
 }
 | num_token{
+    $$ = new NumberExprAST($1);
 }
 | id_token{
+    $$ = new VariableExprAST(*$1);
 }
 | '-' E %prec UMINUS{
+    $$ = new UMinusExprAST($2);
 } 
 | id_token incr_token{
+    $$ = new IncrExprAST(new VariableExprAST(*$1));
 }
 | id_token decr_token{
+    $$ = new DecrExprAST(new VariableExprAST(*$1));
 }
 ;
 
