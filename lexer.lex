@@ -40,7 +40,7 @@
   sscanf(yytext, "%x", &yylval.d);
   return num_token;
 }
-[-%+*/(){},<>=;] return *yytext;
+[-%+*/(){}\[\],<>=;] return *yytext;
 [ \t\n]     {}
 .   {
     std::cerr << "Leksicka greska. Neprepoznat karakter '" << *yytext << "'." << std::endl; 

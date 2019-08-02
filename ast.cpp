@@ -47,6 +47,14 @@ std::string VariableExprAST::print() const{
     return _name;
 }
 
+ExprAST* StringExprAST::compile3ac() const{
+    return new StringExprAST(_s);
+}
+
+std::string StringExprAST::print() const{
+    return _s;
+}
+
 ExprAST* AddExprAST::compile3ac() const{
      ExprAST* res1 = _v[0]->compile3ac();
      ExprAST* res2 = _v[1]->compile3ac();
@@ -147,6 +155,26 @@ std::string ModExprAST::print() const{
     return _v[0]->print() + " % " + _v[1]->print();
 }
 
+ExprAST* IndexExprAST::compile3ac() const{
+    ExprAST* res1 = _v[0]->compile3ac();
+    ExprAST* res2 = _v[1]->compile3ac();
+    
+    int temp = tempNum++;
+    std::string tempName = "t" + std::to_string(temp);
+    
+    OutFile << tempName << " := " ;
+    OutFile << res1->print() << "[" << res2->print() << "]" << std::endl;
+     
+    delete res1;
+    delete res2;
+    
+    return new VariableExprAST(tempName);      
+}
+
+std::string IndexExprAST::print() const{
+    return _v[0]->print() + "[" + _v[1]->print() + "]";
+}
+
 ExprAST* UMinusExprAST::compile3ac() const{
     ExprAST* res1 = _v[0]->compile3ac();
     
@@ -197,6 +225,20 @@ ExprAST* DecrExprAST::compile3ac() const{
 
 std::string DecrExprAST::print() const{
     return _v[0]->print() + "--" ;
+}
+
+ExprAST* PrintExprAST::compile3ac() const{
+    ExprAST* res1 = _v[0]->compile3ac();
+    
+    OutFile << "print(\"" << res1->print() << "\")"<< std::endl;
+     
+    delete res1;
+    
+    return nullptr;      
+}
+
+std::string PrintExprAST::print() const{
+    return "print(" + _v[0]->print() + ")" ;
 }
 
 ExprAST* LtExprAST::compile3ac() const{

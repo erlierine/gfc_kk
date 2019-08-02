@@ -33,6 +33,17 @@ public:
 private:
     std::string _name;
 };
+
+class StringExprAST : public ExprAST{
+public:
+    StringExprAST(const std::string &s)
+        :_s(s){}
+    ExprAST* compile3ac() const;
+    std::string print() const;
+private:
+    std::string _s;
+};
+
 class InnerExprAST : public ExprAST{
 public:
     InnerExprAST(const std::vector<ExprAST*> &v)
@@ -49,6 +60,14 @@ protected:
 class IncrExprAST : public InnerExprAST{
 public:
     IncrExprAST(ExprAST* e1)
+        :InnerExprAST(e1){}
+    ExprAST* compile3ac() const;
+    std::string print() const;
+};
+
+class PrintExprAST : public InnerExprAST{
+public:
+    PrintExprAST(ExprAST* e1)
         :InnerExprAST(e1){}
     ExprAST* compile3ac() const;
     std::string print() const;
@@ -105,6 +124,14 @@ public:
 class ModExprAST : public InnerExprAST{
 public:
     ModExprAST(ExprAST *e1, ExprAST *e2)
+        :InnerExprAST(e1, e2){}
+    ExprAST* compile3ac() const;
+    std::string print() const;
+};
+
+class IndexExprAST : public InnerExprAST{
+public:
+    IndexExprAST(ExprAST *e1, ExprAST *e2)
         :InnerExprAST(e1, e2){}
     ExprAST* compile3ac() const;
     std::string print() const;
