@@ -4,6 +4,7 @@
     #include <cstdlib>
     #include <vector>
     #include "ast.hpp"
+    #include "graph.hpp"
     
     #define YYDEBUG 1
     
@@ -144,7 +145,20 @@ E: E '+' E {
 %%
 int main(){
     //yydebug = 1;
+    extern FILE *yyin;
+    yyin=fopen("../tests/test","r+");
     yyparse();
-    
+    string line;
+    vector<string> lines;
+    ifstream file("../tests/tac.txt");
+    if (file.is_open()) {
+        while (getline(file, line))
+            lines.push_back(line);	
+        file.close();
+    } else {
+        cerr << "Neuspesno otvaranje datoteke" << endl;
+        exit(EXIT_FAILURE);
+    }
+    createFlowGraph(lines);
     return 0;
 }

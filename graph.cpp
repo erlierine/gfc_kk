@@ -30,7 +30,7 @@ void createFlowGraph(vector<string> &lines) {
     fp = fopen("cfg.dot", "r");
     g = agread(fp, 0);
     gvLayout(gvc, g, "dot");
-    gvRender(gvc, g, "png", fopen("diagram.png", "w"));
+    gvRender(gvc, g, "png", fopen("../tests/diagram.png", "w"));
     gvFreeLayout(gvc, g);
     agclose(g);
     gvFreeContext(gvc);

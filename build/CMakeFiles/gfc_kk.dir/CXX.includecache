@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ana/Desktop/kk_proj/graph.cpp
+graph.hpp
+/home/ana/Desktop/kk_proj/graph.hpp
+
+/home/ana/Desktop/kk_proj/graph.hpp
+iostream
+-
+string
+-
+vector
+-
+regex
+-
+map
+-
+boost/graph/adjacency_list.hpp
+-
+boost/graph/graphviz.hpp
+-
+graphviz/gvc.h
+-
+

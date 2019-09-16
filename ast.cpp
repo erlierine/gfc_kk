@@ -3,7 +3,7 @@
 #include <fstream>
 #include "ast.hpp"
 
-std::ofstream OutFile("tac.txt");
+std::ofstream OutFile("../tests/tac.txt");
 
 int ExprAST::label = 0;
 int ExprAST::tempNum = 0;
@@ -367,7 +367,7 @@ ExprAST* IfExprAST::compile3ac() const{
     
     _v[1]->compile3ac();
     
-    OutFile << "L" << lblAfter << std::endl;
+    OutFile << "L" << lblAfter<< ":" << std::endl;
     return nullptr;
 }
 
@@ -385,13 +385,13 @@ ExprAST* IfElseExprAST::compile3ac() const{
     
     _v[1]->compile3ac();
     
-    OutFile << "goto L" << lblIf<< std::endl;    
+    OutFile << "goto L" << lblIf << std::endl;    
     
-    OutFile << "L" << lblElse << std::endl;
+    OutFile << "L" << lblElse << ":" << std::endl;
         
     _v[2]->compile3ac();
     
-    OutFile << "L" << lblIf << std::endl;
+    OutFile << "L" << lblIf << ":" <<std::endl;
     
     return nullptr;
 }
@@ -404,7 +404,7 @@ ExprAST* WhileExprAST::compile3ac() const{
     int lblBefore = ++label;
     int lblAfter = ++label;
     
-    OutFile << "L" << lblBefore << std::endl;
+    OutFile << "L" << lblBefore << ":" << std::endl;
     
     ExprAST* cond = _v[0]->compile3ac();
     
@@ -414,7 +414,7 @@ ExprAST* WhileExprAST::compile3ac() const{
     
     OutFile << "goto L" << lblBefore << std::endl;
     
-    OutFile << "L" << lblAfter << std::endl;
+    OutFile << "L" << lblAfter << ":" <<std::endl;
     
     return nullptr;
 }
@@ -429,7 +429,7 @@ ExprAST* ForExprAST::compile3ac() const{
     
     _v[0]->compile3ac();
     
-    OutFile << "L" << lblBefore << std::endl;
+    OutFile << "L" << lblBefore << ":" << std::endl;
     
     ExprAST* cond = _v[1]->compile3ac();
     
@@ -439,9 +439,9 @@ ExprAST* ForExprAST::compile3ac() const{
     
     _v[2]->compile3ac();
     
-    OutFile << "goto L" << lblBefore << std::endl;
+    OutFile << "goto L" << lblBefore << ":" << std::endl;
     
-    OutFile << "L" << lblAfter << std::endl;
+    OutFile << "L" << lblAfter << ":" <<std::endl;
     
     return nullptr;
 }

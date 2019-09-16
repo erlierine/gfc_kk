@@ -1,0 +1,49 @@
+t0 := b + c
+t1 := - t0
+t2 := a * t1
+t3 := x + y
+t4 := y + z
+t5 := t3 * t4
+t6 := x + y
+t7 := t6 + z
+t8 := t5 + t7
+x := y
+t9 := a - b
+t10 := a - c
+t11 := t9 + t10
+t12 := a - c
+t13 := t11 + t12
+d := t13
+t14 := y + 9
+t15 := t14 > 5
+ifFalse t15 goto L1
+t16 := 5 + 9
+x := t16
+L1
+x := y
+L2
+t17 := 5 / 8
+t18 := t17 * 9
+t19 := x + t18
+t20 := t19 - 125
+t21 := 1258 * 123
+t22 := t21 - 89
+t23 := t20 >= t22
+ifFalse t23 goto L3
+x := 15
+y := 25
+z := 256
+goto L2
+L3
+i := 0
+L4
+t24 := i < 5
+ifFalse t24 goto L5
+t25 := 15 + 13
+t26 := t25 + 38
+t27 := b[t26]
+a := t27
+t28 := i++
+goto L4
+L5
+print("Hello world!\n")
