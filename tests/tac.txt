@@ -44,6 +44,6 @@ t26 := t25 + 38
 t27 := b[t26]
 a := t27
 t28 := i++
-goto L4:
+goto L4
 L5:
 print("Hello world!\n")

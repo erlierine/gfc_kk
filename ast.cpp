@@ -439,7 +439,7 @@ ExprAST* ForExprAST::compile3ac() const{
     
     _v[2]->compile3ac();
     
-    OutFile << "goto L" << lblBefore << ":" << std::endl;
+    OutFile << "goto L" << lblBefore << std::endl;
     
     OutFile << "L" << lblAfter << ":" <<std::endl;
     
