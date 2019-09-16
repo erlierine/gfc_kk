@@ -1,13 +1,13 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/gfc_kk.dir/ast.cpp.o"
-  "CMakeFiles/gfc_kk.dir/graph.cpp.o"
-  "CMakeFiles/gfc_kk.dir/lex.yy.cpp.o"
-  "CMakeFiles/gfc_kk.dir/parser.tab.cpp.o"
-  "gfc_kk"
-  "gfc_kk.pdb"
-  "lex.yy.cpp"
   "parser.tab.cpp"
   "parser.tab.hpp"
+  "lex.yy.cpp"
+  "CMakeFiles/gfc_kk.dir/ast.cpp.o"
+  "CMakeFiles/gfc_kk.dir/graph.cpp.o"
+  "CMakeFiles/gfc_kk.dir/parser.tab.cpp.o"
+  "CMakeFiles/gfc_kk.dir/lex.yy.cpp.o"
+  "gfc_kk.pdb"
+  "gfc_kk"
 )
 
 # Per-language clean rules from dependency scanning.

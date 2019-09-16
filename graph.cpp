@@ -39,7 +39,7 @@ void createFlowGraph(vector<string> &lines) {
 vector<string> createListOfBB(vector<string> &lines, map<string, int> &lbl_ixs) {
 	vector<bool> ins_leader(lines.size(), false);
 	ins_leader[0] = true;
-	regex gotoStat(".+ goto .*");
+	regex gotoStat(".*goto .*");
 	regex lbl_start(".+:");
 	for (unsigned i = 0; i < lines.size(); i++) 
 		if (regex_match(lines[i], lbl_start)) 
@@ -76,7 +76,7 @@ vector<string> createListOfBB(vector<string> &lines, map<string, int> &lbl_ixs) 
 vector<pair<int, int>> findAllEdges(const vector<string>& nodes) {
 	vector<pair<int, int>> edges;
 	map<string, int> lbl_ixs;
-	regex gotoStat("(.|\n)* goto.+\n");
+	regex gotoStat("(.|\n)*goto.+\n");
 	regex lbl_start(".+:\n(.|\n)*");
 	for (unsigned i = 0; i < nodes.size() - 1; i++) { 
 		edges.push_back(make_pair(i, i+1));

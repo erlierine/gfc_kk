@@ -1,4 +1,4 @@
-# Install script for directory: /home/ana/Desktop/kk_proj
+# Install script for directory: /home/nikjan/Documents/KonstrukcijaKompilatora/gfc_kk
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/ana/Desktop/kk_proj/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/nikjan/Documents/KonstrukcijaKompilatora/gfc_kk/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
